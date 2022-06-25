@@ -1,5 +1,4 @@
-import csv
-from map import Map
+from src.map import Map
 
 class App:
   def __init__(self):
@@ -9,5 +8,3 @@ class App:
 
   def run(self):
     self.nodemap.draw()
-
-app = App()
