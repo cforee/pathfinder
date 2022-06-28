@@ -1,13 +1,14 @@
 import csv
 from tkinter import *
 from src.node import Node
+import src.constants as constants
 
 class Map:
-  node_pixel_size = 67
+  node_pixel_size = constants.NODE_PIXEL_SIZE
 
   def __init__(self, filename):
-    self.init_canvas()
     self.init_nodemap(filename)
+    self.init_canvas()
 
   def init_nodemap(self, filename):
     self.nodes = []
@@ -15,28 +16,26 @@ class Map:
     with open(filepath) as f:
       reader = csv.reader(f)
       nodemap = list(reader)
-    for y, row in enumerate(nodemap):
+    for x, row in enumerate(nodemap):
       nodes_row = []
-      for x, col in enumerate(row):
-        node = Node(x, y, self.node_pixel_size)
+      for y, col in enumerate(row):
+        config = constants.NODE_TYPES[col.strip()]
+        node = Node(x + 1, y + 1, self.node_pixel_size, config)
         nodes_row.append(node)
       self.nodes.append(nodes_row)
 
   def init_canvas(self):
     self.root_window = Tk()
     self.root_window.title('Pathfinder Beta')
-    self.root_window.geometry('603x603')
-    self.canvas = Canvas(self.root_window, width=603, height=603)
+    self.root_window.geometry('640x640')
+    width = self.node_pixel_size * (len(self.nodes[0]) + 1) - 2
+    height = self.node_pixel_size * (len(self.nodes) + 1) - 2
+    self.canvas = Canvas(self.root_window, width=width, height=height)
 
   def draw(self):
-    for y, row in enumerate(self.nodes):
-      for x, node in enumerate(row):
-        self.canvas.create_rectangle(
-          node.pixel_dims['top'],
-          node.pixel_dims['left'],
-          node.pixel_dims['bottom'],
-          node.pixel_dims['right']
-        )
     self.canvas.pack()
-    self.root_window.mainloop()
+    for row in self.nodes:
+      for node in row:
+        node.draw(self.canvas)
 
+    self.root_window.mainloop()
