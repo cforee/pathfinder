@@ -1,3 +1,5 @@
+APP_TITLE = 'Pathfinder'
+
 NODE_PIXEL_SIZE = 67
 NODE_TYPES = {
   '0': {
@@ -11,12 +13,12 @@ NODE_TYPES = {
     'walkable': False
   },
   's': {
-    'type': 'start',
+    'type': 'origin',
     'color': 'blue',
     'walkable': True
   },
   'e': {
-    'type': 'end',
+    'type': 'target',
     'color': 'green',
     'walkable': True
   }
