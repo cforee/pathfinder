@@ -65,4 +65,4 @@ class Node:
       self.pixel_dims['right'],
       fill=self.color
     )
-    self.canvas.create_text((self.pixel_dims['top'] + 21, self.pixel_dims['left'] + 12), text=self.id)
+    #self.canvas.create_text((self.pixel_dims['top'] + 21, self.pixel_dims['left'] + 12), text=self.id)

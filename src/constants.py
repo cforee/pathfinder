@@ -1,6 +1,6 @@
 APP_TITLE = 'Pathfinder'
 
-NODE_PIXEL_SIZE = 67
+NODE_PIXEL_SIZE = 10
 COLORS = {
   'white': '#FFFFFF',
   'gray': '#747E7E',
