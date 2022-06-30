@@ -2,6 +2,7 @@ import csv
 from tkinter import *
 from src.node import Node
 import src.constants as constants
+import time
 
 class Map:
   nodes = []
@@ -16,10 +17,12 @@ class Map:
     self._init_canvas(self.nodes)
     self.draw()
     path = self._find_path(self.start_node, self.end_node)
+    self.canvas.pack()
+
     for node in path[1:-1]:
       node.walk()
-
-    self.canvas.pack()
+      self.root_window.update()
+      time.sleep(0)
     self.root_window.mainloop()
 
   def draw(self):
@@ -56,6 +59,7 @@ class Map:
           if neighbor not in open_nodes:
             open_nodes.append(neighbor)
           open_nodes.append(neighbor)
+    return []
 
   def _calculate_cost(self, node1, node2):
     return node1.distance_to(node2)
@@ -66,6 +70,7 @@ class Map:
       path.append(node)
       node = node.parent
     path.append(node)
+    path.reverse()
     return path
 
   def _build_nodes(self, filename):
